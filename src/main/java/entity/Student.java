@@ -1,47 +1,62 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
+package com.example.demo.entity;
 
-struct Activity {
-    string name;
-    int start;
-    int finish;
-};
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 
-// Sort activities by finish time
-bool cmp(Activity a, Activity b) {
-    return a.finish < b.finish;
-}
+@Entity
+@Table(name = "students")
+public class Student {
 
-int main() {
-    int n;
-    cin >> n;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    vector<Activity> act(n);
+    private String name;
+    private String email;
+    private LocalDate dob;
 
-    for (int i = 0; i < n; i++) {
-        cin >> act[i].name;
-        cin >> act[i].start;
-        cin >> act[i].finish;
+    public Student() {
     }
 
-    // Sort by finish time
-    sort(act.begin(), act.end(), cmp);
-
-    cout << "Selected Activities are:" << endl;
-
-    // Select first activity
-    int lastFinish = act[0].finish;
-    cout << act[0].name << " ";
-
-    // Select remaining activities
-    for (int i = 1; i < n; i++) {
-        if (act[i].start >= lastFinish) {
-            cout << act[i].name << " ";
-            lastFinish = act[i].finish;
-        }
+    public Student(String name, String email, LocalDate dob) {
+        this.name = name;
+        this.email = email;
+        this.dob = dob;
     }
 
-    return 0;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
 }
